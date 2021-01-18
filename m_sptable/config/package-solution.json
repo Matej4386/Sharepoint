@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "m-sp-table",
+    "id": "0bf8942f-12fb-4dd8-a52b-b6dc30e90e7e",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true
+  },
+  "paths": {
+    "zippedPackage": "solution/m-sp-table.sppkg"
+  }
+}

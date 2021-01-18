@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
+  "id": "5927305c-ca0f-4d9c-9a04-1521e00629dd",
+  "alias": "MSptablev2WebPart",
+  "componentType": "WebPart",
+  "version": "*",
+  "manifestVersion": 2,
+  "requiresCustomScript": false,
+  "preconfiguredEntries": [{
+    "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
+    "group": { "default": "Other" },
+    "title": { "default": "m-sptablev2" },
+    "description": { "default": "m-sptablev2" },
+    "officeFabricIconFontName": "CustomList",
+    "properties": {
+      
+    }
+  }]
+}

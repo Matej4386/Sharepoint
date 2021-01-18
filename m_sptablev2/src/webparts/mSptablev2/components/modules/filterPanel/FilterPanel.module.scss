@@ -1,0 +1,115 @@
+.FilterPanelHeader {
+    margin-bottom: 18px;
+    position: relative;
+    display: flex;
+    padding: 20px 20px 0px;
+}
+.FilterPanelHeaderText {
+    font-size: 24px;
+    font-weight: bold;
+    display: inline-block;
+    flex-grow: 1;
+    margin-top: 0;
+    margin-bottom: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: text-bottom;
+    cursor: default;
+    margin-right: 15px;
+}
+
+.FilterPanelLayout {
+    &__buttonBar {
+        overflow:auto;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        &__button {
+            display: flex;
+            align-items: baseline;
+            button {
+                height: 100%;
+            }
+        }
+    }
+    &__filterResultBtn {
+        font-size: 14px;
+        font-weight: 400;
+        color: #17375e;
+        position: relative;
+        background: none;
+        background-color: transparent;
+        border: none;
+        line-height: 40px;
+        min-width: 20px;
+        text-align: center;
+        padding: 0 4px;
+        display: block;
+        height: 100%;
+        cursor: pointer;
+    }
+    &__CommanBarItem {
+        display: inline-block;
+        color: #17375e;
+        height: 40px;
+        outline: transparent;
+        vertical-align: top;
+    }
+    &__selectedFilters {
+        padding-left: 10px;
+        padding-right: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        label.filter {
+            display: flex;
+            align-items: center;
+            margin-right: 8px;
+        }
+        label.filter~label.filter:before {
+            padding: 5px;
+            content: "|";
+        }
+        i {
+            margin-right: 5px;
+            vertical-align: sub;
+        }
+        i:hover {
+            color: "[theme: themePrimary, default: #005a9e]";
+            cursor: pointer;
+        }
+    }
+    &__filterPanel {
+        &__body {
+            overflow: auto;
+            margin-left: 15px;
+            &__headerIcon {
+                text-align: right;
+                margin-top: 5px;
+                padding-left: 15px;
+                padding-right: 10px;
+                cursor: pointer;
+            }
+            &__removeAllFilters {
+                padding: 15px;
+            }
+            &__group {
+                &__header {
+                    display: flex;
+                    align-items: center;
+                }
+                button {
+                    padding: 10px;
+                }
+                &__item {
+                    padding-left: 27px;
+                    padding-top: 10px;
+                    padding-right: 15px;
+                }
+            }
+            :global .ms-Grid-row {
+                margin: 0;
+            }
+        }
+    }
+}

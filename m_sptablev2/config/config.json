@@ -1,0 +1,20 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "m-sptablev-2-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/mSptablev2/MSptablev2WebPart.js",
+          "manifest": "./src/webparts/mSptablev2/MSptablev2WebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "MSptablev2WebPartStrings": "lib/webparts/mSptablev2/loc/{locale}.js",
+    "MspTableStrings": "lib/webparts/mSptablev2/components/loc/{locale}.js",
+    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
+  }
+}

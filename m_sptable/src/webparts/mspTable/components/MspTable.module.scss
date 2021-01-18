@@ -1,0 +1,78 @@
+@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+@import './modules/_theming.module.scss';
+.viewcontainer {
+  background-color: $ms-color-white;
+  margin: 0px auto;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  height: 650px;
+  position: relative;
+  max-height: inherit;
+}
+.scrollable {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+.containerChild {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+}
+.CommandBarcontainerMaxWidth {
+  margin: 0px auto;
+  margin-bottom: 1rem;
+  :global(.ms-CommandBar-sideCommands ) {
+    margin: 0 20px;
+  }
+  :global(.ms-CommandBarItem-link) {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+:global {
+  .ms-CommandBarItem-commandText {
+    color: $ms-color-themePrimary !important;
+  }
+  .ms-CommandBar-sideCommands .ms-CommandBarItem {
+    margin-left: 0.5rem;
+  }
+  .ms-DetailsRow.is-selected {
+    background: $ms-color-neutralLighter;
+  }
+  .ms-DetailsRow-cell {
+    font-size: 14px;
+    color: $ms-color-themePrimary !important;
+    .ms-Persona-primaryText {
+      font-size: 14px;
+    }
+  }
+  .ms-DetailsHeader-cellName {
+    font-size: 15px;
+  }
+  .ms-BasePicker,
+  .ms-SearchBox {
+      background-color: $ms-color-white !important;
+  }
+  .ms-DetailsHeader-cell {
+    font-weight: bold;
+  }
+  .ms-DetailsHeader-filterChevron {
+    padding-left: 0.5rem;
+  }
+  div[class*="stickyAbove-"] {
+    overflow-x: hidden !important;
+  }
+  .ms-CommandBarItem .ms-SearchBox-field {
+    background-color: $ms-color-white;
+  }
+  .ms-CommandBarItem .ms-SearchBox-field:hover,
+  .ms-CommandBarItem .ms-SearchBox-field:active,
+  .ms-CommandBarItem .ms-SearchBox.is-active .ms-SearchBox-field,
+  .ms-CommandBarItem .ms-SearchBox:hover .ms-SearchBox-field,
+  .ms-CommandBarItem .ms-SearchBox.is-active {
+    background-color: $ms-color-white;
+  }
+  .ms-CommandBarItem .ms-SearchBox {
+    height: inherit;
+    min-width: 11rem;
+  }
+}
