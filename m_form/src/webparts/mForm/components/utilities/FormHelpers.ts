@@ -12,7 +12,13 @@ export class FormHelpers implements IFormHelpers {
     constructor(spHttpClient: SPHttpClient) {
         this.spHttpClient = spHttpClient;
     }
-
+    /**
+     * Retrievs changed item values based on data and original data. For some column types it changes values due to the api call restrictions
+     * @param fieldsSchema list fields schema
+     * @param data current state for form
+     * @param originalData loaded data from item
+     * @returns array of objects for api call
+     */
     public GetFormValues(fieldsSchema: IFieldSchema[], data: any, originalData: any)
     : Array<{ FieldName: string, FieldValue: any, HasException: boolean, ErrorMessage: string }> {
         const fields: IFieldSchema[] = fieldsSchema.filter((field) => (
@@ -26,7 +32,7 @@ export class FormHelpers implements IFormHelpers {
             FieldName: string;
             FieldValue: any;
             HasException: boolean;
-        }[] = fields.map((field) => {
+        }[] = fields.map((field: IFieldSchema) => {
             const fieldTitle: string = field.InternalName;
             let fieldValue: any = data[field.InternalName];
             if (field.Type === 'User') {

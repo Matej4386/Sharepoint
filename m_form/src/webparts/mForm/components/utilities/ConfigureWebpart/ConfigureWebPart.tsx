@@ -18,14 +18,14 @@ const ConfigureWebPart: React.SFC<IConfigureWebPartProps> = (props) => {
     buttonText
   } = props;
   return (
-    <div >
-      <div >{title}</div>
-      <div >
+    <div>
+      <div>{title}</div>
+      <div>
         <MessageBar messageBarType={MessageBarType.info} >
           {description ? description : 'Please configure this web part\'s properties first.'}
         </MessageBar>
       </div>
-      <div >
+      <div>
         <PrimaryButton
           iconProps={{ iconName: 'Edit' }}
           onClick={(e) => { e.preventDefault(); webPartContext.propertyPane.open(); }}

@@ -27,18 +27,20 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { IconButton, ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { RichText } from '@pnp/spfx-controls-react/lib/RichText';
 import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
+import { Callout, DirectionalHint } from 'office-ui-fabric-react/lib/Callout';
 import { TaxonomyPicker, IPickerTerms, IPickerTerm } from '@pnp/spfx-controls-react/lib/TaxonomyPicker';
 import utilities from '../utilities/utilities';
 
 export class Fields extends React.Component<IFieldsProps, IFieldsState> {
     private newAttachmentsRefs: any = null;
+    private calloutElementRef: any = null;
     private _utilities: utilities;
     constructor(props: IFieldsProps) {
         super(props);
         this._utilities = new utilities();
-        // Initialize state
         this.state = {
             showEdit: false,
+            calloutShow: false,
             newAttachments: [],
             deleteAttachments: []
         };
@@ -82,13 +84,15 @@ export class Fields extends React.Component<IFieldsProps, IFieldsState> {
             (attachment) => attachment.file !== null
         );
 
-        if ((newAttachments.length > 0) || (!isEqual(this.state.deleteAttachments, prevState.deleteAttachments)) || (!isEqual(this.state.newAttachments, prevState.newAttachments))) {
+        if ((newAttachments.length > 0) ||
+        (!isEqual(this.state.deleteAttachments, prevState.deleteAttachments)) ||
+        (!isEqual(this.state.newAttachments, prevState.newAttachments))) {
             this.props.onAttachmentsChange(newAttachments, this.state.deleteAttachments);
         }
     }
     public render(): React.ReactElement<{}> {
         let element: JSX.Element = undefined;
-        if (this.props.formRenderMethod === 1) {// display
+        if (this.props.formRenderMethod === 1) { // display form
             element =   <div className={css(ardStyles.FormFieldfieldGroup, styles.formFieldClassName)} style={{display: 'inline-flex', width: '100%'}}>
                             <div className={this.props.inlineForm ? ardStyles.inlineForms : styles.wrapper} style={{width: this.props.isEditableInViewForm ? '90%' : '100%'}}>
                                 <div style={{display: 'inline-flex', width: this.props.inlineForm ? this.props.inlineFormLabelWidth : ''}}>
@@ -115,12 +119,38 @@ export class Fields extends React.Component<IFieldsProps, IFieldsState> {
                             }
                         </div>;
         } else { // edit , new
+            const description: string = this.props.field.Description ? this.props.field.Description.length > 0 ? this.props.field.Description : null : null;
             element =   <div className={ardStyles.FormFieldfieldGroup}>
                             <div className={css(styles.formFieldClassName)} style={{display: 'inline-flex', width: '100%'}}>
                                 <div className={this.props.inlineForm ? ardStyles.inlineForms : styles.wrapper} style={{width: this.props.baseRenderMethod !== 1 ? '100%' : '90%'}}>
                                     <div style={{display: 'inline-flex', width: this.props.inlineForm ? this.props.inlineFormLabelWidth : ''}}>
                                         {this.renderIcon()}
                                         <Label className={css(ardStyles.label, { ['is-required']: this.props.field.Required })}>{this.props.field.Title}</Label>
+                                        { description && <div style={{display: 'flex', alignItems: 'center'}}>
+                                            <div ref ={(newRef) => this.calloutElementRef = newRef} style={{height: '32px'}}>
+                                                <IconButton
+                                                    style = {{cursor: 'help'}}
+                                                    iconProps = { { iconName: 'Info' } }
+                                                    title = {description}
+                                                    text = {description}
+                                                    ariaLabel = 'Info'
+                                                    onClick ={() => this.setState({calloutShow: true})}
+                                                />
+                                            </div>
+                                        </div>
+                                        }
+                                        { description && this.calloutElementRef && <Callout
+                                                ariaLabelledBy={ 'Info' }
+                                                ariaDescribedBy={ 'Info' }
+                                                role={ 'alertdialog' }
+                                                gapSpace={ 0 }
+                                                directionalHint = {DirectionalHint.topCenter}
+                                                target={ this.calloutElementRef }
+                                                onDismiss={ () => this.setState({calloutShow: false})}
+                                                setInitialFocus={ true }
+                                                hidden={ !this.state.calloutShow }
+                                            >{description}</Callout>
+                                        }
                                     </div>
                                     <div className={ardStyles.controlContainerDisplay}>
                                         {this.renderWaiting()}
@@ -265,14 +295,14 @@ export class Fields extends React.Component<IFieldsProps, IFieldsState> {
                 switch (this.props.field.FieldType) {
                     case 'TaxonomyFieldType':
                     case 'TaxonomyFieldTypeMulti':
-                        field = this.renderTaxonomy (this.props.field.FieldType);
+                        field = this.renderTaxonomy(this.props.field.FieldType);
                         break;
                     case 'Lookup':
                     case 'LookupMulti':
                         field = this.renderLookup();
                         break;
                     default:
-                        field = <div>{this.props.field.Type}</div>;
+                        field = <div>Not supported field: {this.props.field.Type}</div>;
                         break;
                 }
                 break;
@@ -289,7 +319,6 @@ export class Fields extends React.Component<IFieldsProps, IFieldsState> {
         let element: JSX.Element = null;
         if (this.props.formRenderMethod === 1) { // 1 - display, 2 - edit, 3 - new
             if ((this.props.value) && (this.props.value.length > 0)) {
-
                 const baseUrl: string = `${this.props.field.BaseDisplayFormUrl}&ListId={${this.props.field.LookupListId}}`;
                 let values: any = this.props.value;
                 if (!Array.isArray(this.props.value)) {
@@ -315,20 +344,29 @@ export class Fields extends React.Component<IFieldsProps, IFieldsState> {
                 }
                 element = <div>
                     {
-                        values.map((val) => <div><Link target={'_blank'} href={`${baseUrl}&ID=${val.lookupId}`}>{val.lookupValue}</Link></div>)
+                        values.map((val) =>
+                            <div>
+                                <Link
+                                    target={'_blank'}
+                                    href={`${baseUrl}&ID=${val.lookupId}`}
+                                >
+                                    {val.lookupValue}
+                                </Link>
+                            </div>)
                     }
-                </div>;
+                    </div>;
             } else {
                 element = <div></div>;
             }
         } else {
-
             let options: {
                 key: any;
                 text: any;
             }[] = this.props.field.Choices.map((option) => ({ key: option.LookupId, text: option.LookupValue }));
             if (this.props.field.FieldType !== 'LookupMulti') {
-                if (!this.props.field.Required) { options = [{ key: 0, text: '' }].concat(options); }
+                if (!this.props.field.Required) {
+                    options = [{ key: 0, text: '' }].concat(options);
+                }
                 const value: any = this.props.value ?
                     Array.isArray(this.props.value) ?
                         this.props.value[0].lookupId
@@ -419,26 +457,26 @@ export class Fields extends React.Component<IFieldsProps, IFieldsState> {
             }
         } else {
             element = <div>
-           <TextField
-                name={this.props.field.InternalName}
-                value={this.props.value.URL}
-                onChanged={(newValue) => this.onURLChange(newValue, true)}
-                placeholder={strings.UrlFormFieldPlaceholder}
-                multiline={false}
-                style={{marginBottom: '0.3rem'}}
-                validateOnFocusIn
-                validateOnFocusOut
-            />
-            <TextField
-                name={this.props.field.InternalName + '.desc'}
-                value={this.props.value.Desc}
-                onChanged={(newValue) => this.onURLChange(newValue, false)}
-                placeholder={strings.UrlDescFormFieldPlaceholder}
-                multiline={false}
-                validateOnFocusIn
-                validateOnFocusOut
-            />
-          </div>;
+                <TextField
+                    name={this.props.field.InternalName}
+                    value={this.props.value.URL}
+                    onChanged={(newValue) => this.onURLChange(newValue, true)}
+                    placeholder={strings.UrlFormFieldPlaceholder}
+                    multiline={false}
+                    style={{marginBottom: '0.3rem'}}
+                    validateOnFocusIn
+                    validateOnFocusOut
+                />
+                <TextField
+                    name={this.props.field.InternalName + '.desc'}
+                    value={this.props.value.Desc}
+                    onChanged={(newValue) => this.onURLChange(newValue, false)}
+                    placeholder={strings.UrlDescFormFieldPlaceholder}
+                    multiline={false}
+                    validateOnFocusIn
+                    validateOnFocusOut
+                />
+            </div>;
         }
         return element;
     }
@@ -450,14 +488,13 @@ export class Fields extends React.Component<IFieldsProps, IFieldsState> {
         currValue = {
           ...currValue
         };
-
         if (isUrl) {
           currValue.URL = value;
         } else {
           currValue.Desc = value;
         }
         this.props.onValueChanged(currValue);
-      }
+    }
     private renderTaxonomy = (fieldType: string): JSX.Element => {
         let element: JSX.Element = null;
         if (this.props.formRenderMethod === 1) { // 1 - display, 2 - edit, 3 - new
@@ -551,10 +588,14 @@ export class Fields extends React.Component<IFieldsProps, IFieldsState> {
     private renderText = (): JSX.Element => {
         let element: JSX.Element = null;
         if (this.props.formRenderMethod === 1) { // 1 - display, 2 - edit, 3 - new
-            const value: string = (this.props.value) ? ((typeof this.props.value === 'string') ? this.props.value : JSON.stringify(this.props.value)) : '';
-            element = <FieldTextRenderer
-                        text={value}
-                    />;
+            const value: string = (this.props.value) ?
+                ((typeof this.props.value === 'string') ?
+                    this.props.value
+                    :
+                    JSON.stringify(this.props.value))
+                :
+                '';
+            element = <FieldTextRenderer text={value}/>;
         } else {
             const value: string = this.props.value ? this.props.value : '';
             element = <TextField
@@ -578,26 +619,30 @@ export class Fields extends React.Component<IFieldsProps, IFieldsState> {
                 if (this.props.field.RichText === true) {
                     element = <div>{ReactHtmlParser(this.props.value)}</div>;
                 } else {
-                    const value: string = (this.props.value) ? ((typeof this.props.value === 'string') ? this.props.value : JSON.stringify(this.props.value)) : '';
-                    element = <FieldTextRenderer
-                            text={value}
-                        />;
+                    const value: string = (this.props.value) ?
+                        ((typeof this.props.value === 'string') ?
+                            this.props.value
+                            :
+                            JSON.stringify(this.props.value))
+                        :
+                        '';
+                    element = <FieldTextRenderer text={value}/>;
                 }
             }
         } else {
             if (this.props.field.RichText === true) {
                 const value: any = this.props.value ? this.props.value : '';
-
-                element = <div><RichText
-                    value={this.props.field.AppendOnly ? '' : value}
-                    onChange={(text) => {
-                        this.props.onValueChanged(text);
-                        return text;
-                    }}
-                    placeholder={strings.TextFormFieldPlaceholder}
-                    className={ardStyles.richTextEditor}
-                    isEditMode={true}
-                />
+                element = <div>
+                    <RichText
+                        value={this.props.field.AppendOnly ? '' : value}
+                        onChange={(text) => {
+                            this.props.onValueChanged(text);
+                            return text;
+                        }}
+                        placeholder={strings.TextFormFieldPlaceholder}
+                        className={ardStyles.richTextEditor}
+                        isEditMode={true}
+                    />
                 </div>;
             } else {
                 let value: string = this.props.value ? this.props.value : '';
@@ -606,21 +651,21 @@ export class Fields extends React.Component<IFieldsProps, IFieldsState> {
                         value = '';
                     }
                 }
-                element = <div><TextField
-                    name={this.props.field.InternalName}
-                    value={value}
-                    onChanged={(text) => {
-                            this.props.onValueChanged(text);
-                    }}
-                    placeholder={strings.TextFormFieldPlaceholder}
-                    multiline={true}
-                    validateOnFocusIn
-                    validateOnFocusOut
-                />
+                element = <div>
+                    <TextField
+                        name={this.props.field.InternalName}
+                        value={value}
+                        onChanged={(text) => {
+                                this.props.onValueChanged(text);
+                        }}
+                        placeholder={strings.TextFormFieldPlaceholder}
+                        multiline={true}
+                        validateOnFocusIn
+                        validateOnFocusOut
+                    />
                 </div>;
             }
         }
-
         return element;
     }
     private renderAppend = (props: IFieldsProps): JSX.Element => {
@@ -714,10 +759,14 @@ export class Fields extends React.Component<IFieldsProps, IFieldsState> {
         let element: JSX.Element = null;
         if (this.props.formRenderMethod === 1) { // 1 - display, 2 - edit, 3 - new
             let value: string = (this.props.value) ? ((typeof this.props.value === 'string') ? this.props.value : JSON.stringify(this.props.value)) : '';
-            value = (this.props.value === '1' || this.props.value === 'true' || this.props.value === 'Yes' || this.props.value === 'Áno') ? strings.ToggleOnText : strings.ToggleOffText;
-            element = <FieldTextRenderer
-                        text={value}
-                    />;
+            value = (this.props.value === '1' ||
+                    this.props.value === 'true' ||
+                    this.props.value === 'Yes' ||
+                    this.props.value === 'Áno') ?
+                        strings.ToggleOnText
+                        :
+                        strings.ToggleOffText;
+            element = <FieldTextRenderer text={value}/>;
         } else {
             element = <Toggle
                 checked={this.props.value === '1' || this.props.value === 'true' || this.props.value === 'Yes' || this.props.value === 'Áno'}
@@ -783,7 +832,6 @@ export class Fields extends React.Component<IFieldsProps, IFieldsState> {
     }
     private renderChoice = (): JSX.Element => {
         let element: JSX.Element = null;
-
         if (this.props.formRenderMethod === 1) { // 1 - display, 2 - edit, 3 - new
             const value: string = (this.props.value) ? ((typeof this.props.value === 'string') ? this.props.value : this.props.value.join(', ')) : '';
             element = <FieldTextRenderer
@@ -844,9 +892,7 @@ export class Fields extends React.Component<IFieldsProps, IFieldsState> {
                     JSON.stringify(this.props.value))
                 :
                 '';
-            element = <FieldTextRenderer
-                        text={value}
-                    />;
+            element = <FieldTextRenderer text={value}/>;
         } else {
             let val: string;
             val = this.props.value ? this.props.value.replace(/[^0-9.,-]+/g, '') : '';

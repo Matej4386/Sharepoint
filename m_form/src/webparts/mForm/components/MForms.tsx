@@ -68,8 +68,10 @@ export default class MForms extends React.Component < IMFormsProps, IMFormsState
                 console.log (this.state);
             }
         }
-        if ((prevProps.listId !== this.props.listId) || (prevProps.listId !== this.props.listId) || (prevProps.formRenderMethod !== this.props.formRenderMethod)) {
-            this.getInformations();
+        if ((prevProps.listId !== this.props.listId) ||
+            (prevProps.listId !== this.props.listId) ||
+            (prevProps.formRenderMethod !== this.props.formRenderMethod)) {
+                this.getInformations();
         }
     }
     public render(): React.ReactElement<{}> {
@@ -225,6 +227,9 @@ export default class MForms extends React.Component < IMFormsProps, IMFormsState
                 [fieldInternalName]: ''
             };
         }
+        /**
+         * onValueChangedHook
+         */
         if (this.props.onValueChangedHook) {
             const newState: IMFormsState = this.props.onValueChangedHook(newValue, fieldInternalName, fieldErrors, this.state.fieldSchema, this.state.originalFieldSchema)
             this.setState((prevState: IMFormsState) => {
@@ -595,10 +600,10 @@ export default class MForms extends React.Component < IMFormsProps, IMFormsState
                 let data: any = {};
                 for (let i: number = 0; i < myObjectForm.formFields.length; i++) {
                     if (myObjectForm.formFields[i].DefaultValue) {
-                    data = {
-                        ...data,
-                        [myObjectForm.formFields[i].InternalName]: myObjectForm.formFields[i].DefaultValue
-                    };
+                        data = {
+                            ...data,
+                            [myObjectForm.formFields[i].InternalName]: myObjectForm.formFields[i].DefaultValue
+                        };
                     }
                 }
                 item = {...data};
@@ -647,7 +652,8 @@ export default class MForms extends React.Component < IMFormsProps, IMFormsState
         }
     }
     private renderWaiting = (): JSX.Element => {
-        return ((this.state.isLoading === true) || ((this.state.isSaving === true) && (this.props.formRenderMethod !== 1))) ?
+        return ((this.state.isLoading === true) ||
+                ((this.state.isSaving === true) && (this.props.formRenderMethod !== 1))) ?
             <div>
                 <Overlay isDarkThemed={false} className={styles.overlay}>
                     <Spinner size={SpinnerSize.medium} />
@@ -658,10 +664,10 @@ export default class MForms extends React.Component < IMFormsProps, IMFormsState
     }
     private renderInfo = (error: boolean, message: string): void => {
         if (error === true) {
-          this.setState({
-            ...this.state,
-            errors: [...this.state.errors, message]
-          });
+            this.setState({
+                ...this.state,
+                errors: [...this.state.errors, message]
+            });
         } else {
             this.setState({
                 ...this.state,
