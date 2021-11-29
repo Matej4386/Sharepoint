@@ -1,0 +1,11 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "isCreatingSolution": true,
+    "environment": "onprem19",
+    "version": "1.10.0",
+    "libraryName": "m-form",
+    "libraryId": "277530e4-c73e-4a49-8d37-396dc3e66003",
+    "packageManager": "npm",
+    "componentType": "webpart"
+  }
+}

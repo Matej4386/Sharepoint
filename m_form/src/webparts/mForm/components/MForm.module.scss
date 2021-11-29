@@ -1,0 +1,144 @@
+@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+@import "~office-ui-fabric-react/dist/sass/References.scss";
+.myErrorMessage {
+    animation-name: css-111, css-124;
+    animation-duration: 0.367s;
+    animation-timing-function: cubic-bezier(0.1, 0.9, 0.2, 1);
+    animation-fill-mode: both;
+    -webkit-font-smoothing: antialiased;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgb(164, 38, 44);
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    padding-top: 5px;
+    display: flex;
+    align-items: center;
+}
+.label  {
+    width: 100%;
+    font-weight: 600;
+	white-space: normal;
+}
+.inlineForms {
+	display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    float: left;
+}
+.label:global(.is-required) {
+    &::after {
+        content: ' *';
+        color: $ms-color-error;
+    }
+}
+.richTextEditor {
+	border: 1px solid #a6a6a6;
+}
+.FormFieldfieldGroup {
+    border-bottom: 1px solid;
+	border-color: $ms-color-neutralLighter;
+}
+.IconEdit {
+	justify-content: center;
+    display: flex;
+    align-items: center;
+}
+.fieldIcon {
+	align-self: center;
+	font-size: 16px;
+	color: "[theme:neutralSecondary, default: #605e5c]";
+	margin-right: 8px;
+}
+.controlContainerDisplay {
+    display: inline-block;
+    width: 100%;
+    min-height: 20px;
+    vertical-align: top;
+    margin-right: 1px;
+    outline: 0;
+    padding: 0 0 5px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+	padding-right: 1rem;
+	position: relative;
+}
+.fullwidthContainer {
+	max-width: 100%;
+	margin: 0px auto;
+	font-size: 16px;
+	font-family: "Segoe UI Regular WestEuropean","Segoe UI",Tahoma,Arial,sans-serif;
+	font-weight: 400;
+  }
+.container {
+	// max-width: 1000px;
+	margin: 0px auto;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+	position: relative;
+	max-height: inherit;
+}
+.containerChild {
+	padding-left: 1rem;
+	padding-right: 1rem;
+	padding-top: 1rem;
+}
+.title {
+	@include ms-font-xl;
+	color: $ms-color-themePrimary;
+	font-weight: bold;
+	text-align: center;
+	margin-top: 0.4rem;
+	margin-bottom: 0.4rem;
+}
+.Footercontainer {
+	margin-top: 1rem;
+	min-height: 2rem;
+}
+.overlay {
+	z-index: 1000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: $ms-color-neutralLighter;
+	opacity: 0.6;
+}
+.AttachmentsNew {
+	display: grid;
+	align-items: center;
+	.Attachment {
+		display: flex;
+		align-items: center;
+		padding-right: 0.5rem;
+		float: left;
+		width: 100%;
+		white-space: normal;
+	}
+}
+.Attachment {
+	display: flex;
+	align-items: center;
+	padding-right: 0.5rem;
+	float: left;
+	width: 100%;
+	white-space: normal;
+}
+.Attachments {
+	display: inline-block;
+	padding: 0px 0px 4px 8px;
+	align-items: center;
+	.Attachment {
+		padding-right: 0.5rem;
+		float: left;
+		white-space: normal;
+	}
+}
+.fileIconImg {
+    vertical-align: 'middle';
+    max-height: 20px;
+    max-width: 20px;
+}

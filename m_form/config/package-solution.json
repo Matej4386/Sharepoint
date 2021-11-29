@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "m-form",
+    "id": "277530e4-c73e-4a49-8d37-396dc3e66003",
+    "version": "1.0.0.3",
+    "includeClientSideAssets": true
+  },
+  "paths": {
+    "zippedPackage": "solution/m-form.sppkg"
+  }
+}
