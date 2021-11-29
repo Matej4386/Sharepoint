@@ -7,23 +7,23 @@ inline editting in Display form,
 configurable via webpart properties with hooks (valueUpdated, beforeSave, ...),
 
 Supported fields are:
-'Text'
-'Note' (Simple, RichText, AppendOnly - with previous text render)
-'User'
-'UserMulti'
-'Boolean'
-'DateTime' (Date + Date and Time)
-'Choice'
-'MultiChoice'
-'Number'
-'Currency'
-'Attachments' (Add, Edit, Delete)
-'Lookup':
-    'TaxonomyFieldType'
-    'TaxonomyFieldTypeMulti'
-    'Lookup'
-    'LookupMulti'
-'URL' (picture, link)
+#### 'Text'
+####  'Note' (Simple, RichText, AppendOnly - with previous text render)
+#### 'User'
+#### 'UserMulti'
+#### 'Boolean'
+#### 'DateTime' (Date + Date and Time)
+#### 'Choice'
+#### 'MultiChoice'
+#### 'Number'
+#### 'Currency'
+#### 'Attachments' (Add, Edit, Delete)
+#### 'Lookup':
+#####    'TaxonomyFieldType'
+#####    'TaxonomyFieldTypeMulti'
+#####    'Lookup'
+#####    'LookupMulti'
+#### 'URL' (picture, link)
 
 ### Building the code
 
