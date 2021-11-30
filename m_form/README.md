@@ -1,8 +1,8 @@
 # M-FORM
 
-SPFX Webpart component to render Sharepoint list forms (Display, Edit, New) for SharePoint 2019 on-premise and SharePoint online. 
+SPFx Webpart component to render SharePoint list forms (Display, Edit, New) for SharePoint 2019 on-premise and SharePoint online. 
 
-#### SPFX Framework version:
+#### SPFx Framework version:
 ##### ~1.4.0
 
 #### Supports: 
@@ -10,6 +10,7 @@ SPFX Webpart component to render Sharepoint list forms (Display, Edit, New) for 
 - 2 rendering types: normal and inline (label and input are inline), 
 - configurable via webpart properties with hooks (valueUpdated, beforeSave, ...), 
 - it uses AddValidateUpdateItemUsingPath and ValidateUpdateListItem calls - columns conditions are supported (for example number columns must be between 10 and 100)
+- Append only fields
 
 #### Supported fields:
 - Text
