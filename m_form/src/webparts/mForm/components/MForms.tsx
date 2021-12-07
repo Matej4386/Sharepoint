@@ -576,9 +576,7 @@ export default class MForms extends React.Component < IMFormsProps, IMFormsState
                                 .filter(multiLineAppendFields[i].InternalName + ' ne null')
                                 .get();
                             if (itemRet) {
-                                if (itemRet.length > 0) {
-                                    item[multiLineAppendFields[i].InternalName] = [...itemRet];
-                                }
+                              item[multiLineAppendFields[i].InternalName] = [...itemRet];
                             }
                         }
                     }
