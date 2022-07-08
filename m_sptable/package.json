@@ -18,7 +18,7 @@
     "@microsoft/sp-webpart-base": "~1.4.0",
     "@microsoft/sp-lodash-subset": "~1.4.0",
     "@microsoft/sp-office-ui-fabric-core": "~1.4.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "jquery": "^3.4.1",
     "react-html-parser": "^2.0.2",
     "spfx-uifabric-themes": "~0.1.3",
